@@ -49,6 +49,10 @@ useTransition
 - 지연시키고 싶은 setState를 넣기
 - 인풋과 리스트 필터값을 분리
 
+`useTransition`은 상태 업데이트를 긴급성 기준으로 나누어, 시간이 오래 걸리는 
+업데이트가 사용자 입력 같은 긴급한 업데이트를 방해하지 않도록 해 UI 반응성을 
+높이는 데 사용됩니다.
+
 const [isPending, startTransition] = useTransition() 
 
 const handleChange = ({ target: { value } }) => {
