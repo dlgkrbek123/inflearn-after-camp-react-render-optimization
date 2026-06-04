@@ -1,0 +1,59 @@
+----------------------------------------------------------------
+
+웹최적화에는 여러요소가 있는데 이미지 최적화만 잘해도 지표가 매우좋아짐
+자동으로 최적화해보장
+
+----------------------------------------------------------------
+
+내가 코드 못 건드릴떄 => 직접 압축하고 올려야지 에효효
+코드 바꿀수 있을때
+- 브라우져에서 압축하고 올리기 (browser-image-compression)
+- 서버에서 받을떄 압축하고 올리기
+
+import "./styles.css";
+import React from "react";
+import imageCompression from "browser-image-compression";
+
+export default function App() {
+  const [url, setUrl] = React.useState();
+
+  const onChange = async (e) => {
+    if (e.target.files) {
+      var reader = new FileReader();
+
+      reader.onload = function (event) {
+        setUrl(event.target.result);
+      };
+
+      const compress = await imageCompression(e.target.files[0], {
+        initialQuality: 0.1
+      });
+
+      reader.readAsDataURL(compress);
+      console.log("original", Math.ceil(e.target.files[0].size / 1000), "KB");
+      console.log(Math.ceil(compress.size / 1000), "KB");
+      // setFile(e.target.files[0]);
+    }
+  };
+
+  return (
+    <div className="App">
+      <input onChange={onChange} type="file"></input>
+      <img src={url} width={500} height={500} />
+    </div>
+  );
+}
+
+----------------------------------------------------------------
+
+!! scriptkit !!
+- 코드를 작성해서 자동화
+- sharp써서 압축하고 업로드하는 프로세스 구축
+
+----------------------------------------------------------------
+
+외부 서비스써서 최적화
+- cloudinary
+  - 흐린 화면 먼저 보이게하고 선명한게 로드되게해서 빠른 반응성 제공
+
+----------------------------------------------------------------
